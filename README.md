@@ -5,7 +5,7 @@ This repo contain all the code I used to complete
 Program provided by [Udacity](https://www.udacity.com/). 
 
 ## Setting up Environment
-Build env using existing [aind-environment-osx.yml]('aind-environment-osx.yml').
+Build env using existing [aind-environment-osx.yml](aind-environment-osx.yml).
 
 ### Conda environment
 ```commandline
@@ -31,5 +31,6 @@ source deactivate aind
 conda install nb_conda
 jupyter notebook
 ```
+
 
 
