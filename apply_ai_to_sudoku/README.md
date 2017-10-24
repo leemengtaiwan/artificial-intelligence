@@ -2,6 +2,12 @@
 View [Applying_AI_to_Sudoku.ipynb](Applying_AI_to_Sudoku.ipynb) for step-by-step solution.
 
 
+
+
+![Solving Sudoku](images/solving_sudoku.gif)
+
+
+
 ## Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
 A: We solve the problem by iterating the following two steps:
