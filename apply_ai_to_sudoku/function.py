@@ -64,9 +64,7 @@ def reduce_puzzle(values):
         # Check how many boxes have a determined value
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
 
-        # Your code here: Use the Eliminate Strategy
         values = eliminate(values)
-        # Your code here: Use the Only Choice Strategy
         values = only_choice(values)
 
         # Check how many boxes have a determined value, to compare
@@ -83,7 +81,8 @@ def search(values):
     """Using depth-first search and propagation,
     create a search tree and solve the sudoku.
     """
-    
+    values = naked_twins(values)
+
     # First, reduce the puzzle using the previous function
     values = reduce_puzzle(values)
     if not values: return values  # fail case
@@ -102,6 +101,52 @@ def search(values):
             attempt = search(values_simulate)
             if attempt:
                 return attempt
+
+
+def naked_twins(values):
+    """Eliminate values using the naked twins strategy.
+    Args:
+        values(dict): a dictionary of the form {'box_name': '123456789', ...}
+
+    Returns:
+        the values dictionary with the naked twins eliminated from peers.
+    """
+    from itertools import combinations
+    values = dict(values)
+
+    def find_twins(values):
+        """Helper for finding all naked twins.
+        Returns
+        -------
+            twin_units: list of tuples of form (box1, box2, unit)
+        """
+        twin_units = []  # list of tuple of (twin1, twin2, unit)
+        for unit in unitlist:
+            two_digit_boxes = [box for box, v in values.items() if len(v) == 2 and box in unit]
+            for box1, box2 in combinations(two_digit_boxes, 2):
+                if values[box1] == values[box2]:
+                    twin_units.append((box1, box2, unit))
+        return twin_units
+
+    # Iterative find all occurence of naked twins and
+    # eliminate the naked twins as possibilities for their peers
+    # stop when there is no more update
+    twin_units = find_twins(values)
+    stalled = False
+    while twin_units and not stalled:
+        values_before = dict(values)
+        for t in twin_units:
+            box1, box2, unit = t
+            d1, d2 = values[box1]
+            for box in unit:
+                if box != box1 and box != box2:
+                    values[box] = values[box].replace(d1, '').replace(d2, '')
+
+            twin_units = find_twins(values)
+
+        stalled = values_before == values
+
+    return values
 
 
 def grid_values_v1(grid):
