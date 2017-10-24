@@ -6,7 +6,7 @@ Program provided by [Udacity](https://www.udacity.com/).
 
 ## Table of contents
 - [Setting up environment](setting_up_env/README.md)
-- [Apply AI to Sudoku](apply_ai_to_sudoku/README.md)
+- [Diagonal Sudoku Solver](apply_ai_to_sudoku/README.md)
 
 
 

@@ -1,7 +1,8 @@
-# Artificial Intelligence Nanodegree
-## Introductory Project: Diagonal Sudoku Solver
+# Diagonal Sudoku Solver
+View [Applying_AI_to_Sudoku.ipynb](Applying_AI_to_Sudoku.ipynb) for step-by-step solution.
 
-# Question 1 (Naked Twins)
+
+## Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
 A: We solve the problem by iterating the following two steps:
 - For every unit (row, column, diagonal, square), find naked twins
@@ -13,7 +14,7 @@ new naked twins, thus we should **progagate** the constraint further whenever th
 twins appear.
 
 
-# Question 2 (Diagonal Sudoku)
+## Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
 A: The biggest difference between Diagonal Sudoku and normal Sudoku is that we have to add additional 
 constraint (digits in two diagonals should not duplicate neither as other units). After adding the constraint,
