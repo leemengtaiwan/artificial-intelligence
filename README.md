@@ -9,4 +9,3 @@ Program provided by [Udacity](https://www.udacity.com/).
 - [Diagonal Sudoku Solver](apply_ai_to_sudoku/)
 
 
-
