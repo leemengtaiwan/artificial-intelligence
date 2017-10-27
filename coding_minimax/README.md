@@ -5,14 +5,16 @@
 ## Algorithms
 
 ### Minimax Search
-![Minimax](images/minimax-pesudocode.png)
 
-
-<img src="images/minimax-pesudocode.png" alt="Cover" width="50%"/>
-
+<p align="center">
+    <img src="images/minimax-pesudocode.png" alt="Cover" width="50%"/>
+</p>
 
 ### Alpha-Beta Search
-![Minimax](images/alpha-beta-pruning-pesudocode.png)
+<p align="center">
+    <img src="images/alpha-beta-pruning-pesudocode.png" alt="Cover" width="50%"/>
+</p>
+
 
 ## Reference
 - [Alpha-Beta Pruning Practice](http://inst.eecs.berkeley.edu/~cs61b/fa14/ta-materials/apps/ab_tree_practice/)
