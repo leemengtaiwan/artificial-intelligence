@@ -43,7 +43,7 @@ class GameState:
         self._board[-1][-1] = 1  # block lower-right corner
 
     def __str__(self):
-        """Retrun a string representing current board
+        """Return a string representing current board
         as human-readable format
         """
         rows = [' '.join([str(col[y]) for col in self._board]) for y in range(self._ylim)]
@@ -70,7 +70,6 @@ class GameState:
         new_state._active_player ^= 1  # toggle active player
         return new_state
 
-
     def get_legal_moves(self):
         """ Return a list of all legal moves available to the
         active player.  Each player should get a list of all
@@ -84,7 +83,7 @@ class GameState:
         """
 
         # all squares are available when making first move
-        if self._player_locations[1] == None:
+        if not self._player_locations[1]:
             return [(x, y) for x, col in enumerate(self._board) \
                     for y, v in enumerate(col) if v != 1]
 
