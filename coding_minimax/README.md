@@ -8,6 +8,9 @@
 ![Minimax](images/minimax-pesudocode.png)
 
 
+<img src="images/minimax-pesudocode.png" alt="Cover" width="50%"/>
+
+
 ### Alpha-Beta Search
 ![Minimax](images/alpha-beta-pruning-pesudocode.png)
 
