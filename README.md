@@ -5,7 +5,9 @@ Code used for
 Program provided by [Udacity](https://www.udacity.com/). 
 
 ## Table of contents
-- [Setting up environment](setting_up_env/)
-- [Diagonal Sudoku Solver](apply_ai_to_sudoku/)
+- [Setting up environment](setting-up-env/)
+- [Diagonal Sudoku Solver](apply-ai-to-sudoku/)
+
+
 
 
