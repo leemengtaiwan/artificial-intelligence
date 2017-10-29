@@ -1,6 +1,6 @@
 # Diagonal Sudoku Solver
+A application solve Sudoku using constraint propagation.  
 View [Applying_AI_to_Sudoku.ipynb](Applying_AI_to_Sudoku.ipynb) for step-by-step solution.
-
 
 
 
