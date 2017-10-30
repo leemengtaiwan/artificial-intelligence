@@ -2,6 +2,7 @@
 test your agent's strength against a set of known agents using tournament.py
 and include the results in your report.
 """
+from collections import deque
 import random
 
 
@@ -329,17 +330,24 @@ class AlphaBetaPlayer(IsolationPlayer):
         """
         self.time_left = time_left
 
-        best_move = (-1, -1)
+        best_moves = deque([(-1, -1)])
 
         try:
             # The try/except block will automatically catch the exception
             # raised when the timer is about to expire.
-            return self.alphabeta(game, self.search_depth, alpha, beta)
+            def depths(n=100000):
+                for e in range(n): yield e
+
+            for depth in depths():
+                best_moves.appendleft(self.alphabeta(game, depth, alpha, beta))
+
+            # return self.alphabeta(game, self.search_depth, alpha, beta)
         except SearchTimeout:
-            pass  # Handle any actions required after timeout as needed
+            # return the best move from last completed search
+            return best_moves[0]
 
         # Return the best move from the last completed search iteration
-        return best_move
+        return best_moves[0]
 
     def terminal_test(self, game):
         """ Return True if the game is over for the active player
