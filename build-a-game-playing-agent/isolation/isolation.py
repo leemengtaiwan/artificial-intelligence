@@ -11,6 +11,7 @@ import random
 import timeit
 from copy import copy
 
+# TIME_LIMIT_MILLIS = 1500
 TIME_LIMIT_MILLIS = 150
 
 

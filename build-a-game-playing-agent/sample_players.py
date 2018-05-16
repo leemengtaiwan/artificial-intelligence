@@ -257,10 +257,13 @@ if __name__ == "__main__":
     from game_agent import *
 
     # create an isolation board (by default 7x7)
-    player1 = MinimaxPlayer()
+    player1 = AlphaBetaPlayer(search_depth=2)
     # player2 = GreedyPlayer()
     player2 = RandomPlayer()
-    game = Board(player1, player2)
+    game = Board(player1, player2, width=9, height=9)
+    print(game.to_string())
+
+
 
     # place player 1 on the board at row 2, column 3, then place player 2 on
     # the board at row 0, column 5; display the resulting board state.  Note

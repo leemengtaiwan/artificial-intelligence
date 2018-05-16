@@ -10,9 +10,81 @@ class SearchTimeout(Exception):
     """Subclass base exception for code clarity. """
     pass
 
-# open move, open_move - opponent, dist_from_center
+
 def custom_score(game, player):
-    """Calculate the heuristic value of a game state from the point of view
+    """This evaluation try to give higher score to game state where opponent's
+    moves are less AFTER player move.
+
+    Parameters
+    ----------
+    game : `isolation.Board`
+        An instance of `isolation.Board` encoding the current state of the
+        game (e.g., player locations and blocked cells).
+
+    player : object
+        A player instance in the current game (i.e., an object corresponding to
+        one of the player objects `game.__player_1__` or `game.__player_2__`.)
+
+    Returns
+    -------
+    float
+        The heuristic value of the current game state to the specified player.
+    """
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+
+    player_moves = len(game.get_legal_moves(player))
+    opponent_moves = len(game.get_legal_moves(game.get_opponent(player)))
+
+    score = float(10 * player_moves - opponent_moves)
+    if opponent_moves == 0:
+        score *= 2
+    return score
+
+
+def custom_score_2(game, player):
+    """This evaluation use the difference between number of available moves of
+    the player and the number of available moves of the opponent as heuristic value.
+
+    score = #available_moves(player) - #available_moves(opponent)
+
+    Parameters
+    ----------
+    game : `isolation.Board`
+        An instance of `isolation.Board` encoding the current state of the
+        game (e.g., player locations and blocked cells).
+
+    player : object
+        A player instance in the current game (i.e., an object corresponding to
+        one of the player objects `game.__player_1__` or `game.__player_2__`.)
+
+    Returns
+    -------
+    float
+        The heuristic value of the current game state to the specified player.
+    """
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+
+    player_moves = len(game.get_legal_moves(player))
+    opponent_moves = len(game.get_legal_moves(game.get_opponent(player)))
+
+    return float(player_moves - opponent_moves)
+
+
+def custom_score_3(game, player):
+    """This evaluation use the number of available moves of the player in
+    current game state as a heuristic value.
+
+    score = #available_moves(player)
+
+    Calculate the heuristic value of a game state from the point of view
     of the given player.
 
     This should be the best heuristic function for your project submission.
@@ -44,12 +116,9 @@ def custom_score(game, player):
     return float(len(game.get_legal_moves(player)))
 
 
-def custom_score_2(game, player):
-    """Calculate the heuristic value of a game state from the point of view
-    of the given player.
-
-    Note: this function should be called from within a Player instance as
-    `self.score()` -- you should not need to call this function directly.
+def custom_score_4(game, player):
+    """This evaluation try to give higher score to game state where opponent's
+    moves are less AFTER player move.
 
     Parameters
     ----------
@@ -66,16 +135,29 @@ def custom_score_2(game, player):
     float
         The heuristic value of the current game state to the specified player.
     """
-    # TODO: finish this function!
-    raise NotImplementedError
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+
+    open_moves = game.get_legal_moves(player)
+    num_moves = len(open_moves)
+    total_opponent_moves = 0
+    opponent = game.get_opponent(player)
+    for move in open_moves:
+        new_game = game.forecast_move(move)
+        total_opponent_moves += len(new_game.get_legal_moves(opponent))
+
+    try:
+        return -float(total_opponent_moves / float(num_moves))
+    except ZeroDivisionError:
+        return 0.
 
 
-def custom_score_3(game, player):
-    """Calculate the heuristic value of a game state from the point of view
-    of the given player.
-
-    Note: this function should be called from within a Player instance as
-    `self.score()` -- you should not need to call this function directly.
+def custom_score_5(game, player):
+    """This evaluation try to give higher score to game state where opponent's
+    moves are less AFTER player move.
 
     Parameters
     ----------
@@ -92,8 +174,19 @@ def custom_score_3(game, player):
     float
         The heuristic value of the current game state to the specified player.
     """
-    # TODO: finish this function!
-    raise NotImplementedError
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+
+    player_moves = len(game.get_legal_moves(player))
+    opponent_moves = len(game.get_legal_moves(game.get_opponent(player)))
+
+    score = float(player_moves - opponent_moves)
+    if opponent_moves == 0:
+        score *= 2
+    return score
 
 
 class IsolationPlayer:
@@ -123,6 +216,7 @@ class IsolationPlayer:
         self.score = score_fn
         self.time_left = None
         self.TIMER_THRESHOLD = timeout
+
 
 
 class MinimaxPlayer(IsolationPlayer):
@@ -333,15 +427,12 @@ class AlphaBetaPlayer(IsolationPlayer):
         best_moves = deque([(-1, -1)])
 
         try:
-            # The try/except block will automatically catch the exception
-            # raised when the timer is about to expire.
+            # iterative deepening search while time available
             def depths(n=100000):
                 for e in range(n): yield e
-
             for depth in depths():
                 best_moves.appendleft(self.alphabeta(game, depth, alpha, beta))
 
-            # return self.alphabeta(game, self.search_depth, alpha, beta)
         except SearchTimeout:
             # return the best move from last completed search
             return best_moves[0]
